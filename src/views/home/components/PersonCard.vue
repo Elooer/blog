@@ -42,7 +42,7 @@ import { reactive, ref } from 'vue'
 .card_container {
   height: 420px;
   padding: 10px 10px;
-  box-shadow: 0 0 8px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   margin-top: 20px;
   border-radius: 5px;

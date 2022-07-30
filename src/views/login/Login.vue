@@ -8,11 +8,11 @@
           <el-form ref="loginFormRef" :model="loginForm" class="login_form" :rules="rules">
             <div class="label">用户名</div>
             <el-form-item prop="username">
-              <el-input v-model="loginForm.username" />
+              <el-input v-model="loginForm.username" :prefix-icon="User" />
             </el-form-item>
             <div class="label">密码</div>
             <el-form-item prop="password">
-              <el-input v-model="loginForm.password" />
+              <el-input v-model="loginForm.password" show-password :prefix-icon="Lock" />
             </el-form-item>
             <el-button type="primary" @click="login">登录</el-button>
           </el-form>
@@ -22,15 +22,15 @@
           <el-form ref="registerFormRef" :model="registerForm" class="login_form" :rules="rules">
             <div class="label">用户名</div>
             <el-form-item prop="username">
-              <el-input v-model="registerForm.username" />
+              <el-input v-model="registerForm.username" :prefix-icon="User" />
             </el-form-item>
             <div class="label">密码</div>
             <el-form-item prop="password">
-              <el-input v-model="registerForm.password" />
+              <el-input v-model="registerForm.password" show-password :prefix-icon="Lock" />
             </el-form-item>
             <el-form-item prop="rePassword">
               <div class="label">确认密码</div>
-              <el-input v-model="registerForm.rePassword" />
+              <el-input v-model="registerForm.rePassword" show-password :prefix-icon="Lock" />
             </el-form-item>
             <el-button type="primary" @click="register">注册</el-button>
           </el-form>
@@ -43,6 +43,7 @@
 import { reactive, ref, toRefs, getCurrentInstance } from 'vue'
 import { useRouter } from 'vue-router'
 import { FormInstance, FormRules } from 'element-plus'
+import { User, Lock } from '@element-plus/icons-vue'
 import { loginApi, registerApi } from '../../request/api'
 
 const validatePass2 = (rule: any, value: string, callback: Function) => {
@@ -56,7 +57,7 @@ const validatePass2 = (rule: any, value: string, callback: Function) => {
   }
 }
 
-const state = reactive<{ loginForm: loginFormItf, registerForm: registerFormItf, rules: FormRules }>({
+const state = reactive<{ loginForm: LoginFormItf, registerForm: RegisterFormItf, rules: FormRules }>({
   loginForm: {
     username: '',
     password: '',
