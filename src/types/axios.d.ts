@@ -28,8 +28,14 @@ interface ArticleItf {
   content: string
   pubTime: string
   tag: string
+  count: number
   img: string
   state: boolean
 }
 
 type ArticleListRes = ArticleItf[]
+
+interface PageInfo {
+  current: number
+  total: number
+}

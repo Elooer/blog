@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import './assets/styles/rebase.less'
+import './assets/css/rebase.less'
 import './assets/iconfont/iconfont.css'
 import 'animate.css'
 import 'element-plus/theme-chalk/display.css'
@@ -27,6 +27,7 @@ class Message {
     })
   }
 }
+
 const app = createApp(App)
 app.config.globalProperties.$message = new Message()
 app.use(router).mount('#app')

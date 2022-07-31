@@ -1,6 +1,6 @@
 <template>
   <div class="card_container">
-    <div class="card">
+    <div class="card hover_class">
       <div class="avatar">
         <img src="https://avatars.githubusercontent.com/u/75289160?s=400&u=603c03e10ae12bb1d4660e33784aeaef62ef2281&v=4"
           alt="">
@@ -41,17 +41,14 @@ import { reactive, ref } from 'vue'
 <style lang="less" scoped>
 .card_container {
   height: 420px;
-  padding: 10px 10px;
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
-  background-color: #fff;
   margin-top: 20px;
-  border-radius: 5px;
 
   .card {
     position: relative;
     background-color: #fff;
     height: 100%;
-
+    border-radius: 5px;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
 
     .avatar {
       position: absolute;
