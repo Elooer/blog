@@ -1,20 +1,39 @@
 <template>
   <div class="header-container">
     <el-menu ref="menu" class="el-menu-demo" :class="{ animate__animated: isActive, animate__slideInDown: isActive }"
-      mode="horizontal" :ellipsis="false" @select="" :background-color="bgc" text-color="#fff" active-text-color="#fff"
+      mode="horizontal" :ellipsis="false" @open="" :background-color="bgc" text-color="#fff" active-text-color="#fff"
       router>
       <!-- <el-menu-item index="0">Elooer</el-menu-item> -->
-      <div class="flex-grow" />
-      <el-menu-item index="/home"><i class="iconfont">&#xe7e0;</i>首页</el-menu-item>
-      <el-menu-item index="/record"><i class="iconfont">&#xe7dc;</i>归档</el-menu-item>
-      <el-menu-item index="/message"><i class="iconfont">&#xe7e4;</i>留言</el-menu-item>
-      <el-menu-item index="/about"><i class="iconfont">&#xe7dd;</i>关于</el-menu-item>
-      <el-menu-item index="/login">登录</el-menu-item>
+      <div class="flex-grow pc" />
+      <el-menu-item class="pc" index="/home"><i class="iconfont">&#xe7e0;</i>首页</el-menu-item>
+      <el-menu-item class="pc" index="/record"><i class="iconfont">&#xe7dc;</i>归档</el-menu-item>
+      <el-menu-item class="pc" index="/message"><i class="iconfont">&#xe7e4;</i>留言</el-menu-item>
+      <el-menu-item class="pc" index="/about"><i class="iconfont">&#xe7dd;</i>关于</el-menu-item>
+      <el-menu-item class="pc" index="/login">登录</el-menu-item>
+      <Operation @click="drawer = true" class="pe" style="width: 2em; height: 2em;vertical-align: -2px;color: #fff" />
+      <el-drawer v-model="drawer" direction="ttb" :show-close="false" :with-header="false">
+        <div class="tab">
+          <router-link to="/home" style="text-decoration: none;color: #fff;">首页</router-link>
+        </div>
+        <div class="tab">
+          <router-link to="/record" style="text-decoration: none;color: #fff;">归档</router-link>
+        </div>
+        <div class="tab">
+          <router-link to="/message" style="text-decoration: none;color: #fff;">留言</router-link>
+        </div>
+        <div class="tab">
+          <router-link to="/about" style="text-decoration: none;color: #fff;">关于</router-link>
+        </div>
+        <div class="tab">
+          <router-link to="/login" style="text-decoration: none;color: #fff;">登录</router-link>
+        </div>
+      </el-drawer>
     </el-menu>
   </div>
 </template>
 <script lang="ts" setup>
 import { reactive, ref, toRefs, onMounted } from 'vue'
+import { Operation } from '@element-plus/icons-vue'
 
 const props = defineProps({
   flag: {
@@ -30,6 +49,7 @@ const state = reactive({
 
 
 let menu = ref()
+let drawer = ref(false)
 onMounted(() => {
   if (!flag) {
     window.addEventListener('scroll', () => {
@@ -37,7 +57,6 @@ onMounted(() => {
       let clientHeight = document.documentElement.clientHeight * 0.6
 
       if (scrollTop >= clientHeight) {
-        console.log("滚动到底部了")
         isActive.value = true
         bgc.value = 'rgba(0,0,0,0.3)'
       } else {
@@ -83,7 +102,33 @@ let { flag } = props
 
 }
 
-.active {
-  color: yellow;
+.tab {
+  height: 20%;
+  font-size: 16px;
+  text-align: center;
+  line-height: 5vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  margin-bottom: 2px;
+}
+
+@media screen and (max-width:768px) {
+  .pe {
+    display: block;
+    float: right !important;
+  }
+
+  .pc {
+    display: none;
+  }
+}
+
+@media screen and (min-width:992px) {
+  .pe {
+    display: none;
+  }
+
+  .pc {
+    display: block;
+  }
 }
 </style>

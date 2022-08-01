@@ -1,13 +1,17 @@
 <template>
   <div class="article_container">
     <div class="article_item hover_class" v-for="item in articleList" :key="item._id" @click="toDetail(item._id)">
+
       <el-row>
         <el-col :xs="{ span: 22, offset: 1 }" :sm="{ span: 22, offset: 1 }" :md="{ span: 8, offset: 0 }">
           <div class="b_img"><img :src="item.img" alt=""></div>
         </el-col>
         <el-col :xs="{ span: 22, offset: 1 }" :sm="{ span: 22, offset: 1 }" :md="{ span: 15, offset: 1 }">
           <div class="main">
-            <div class="title">{{ item.title }}</div>
+            <div class="title">
+              <span>{{ item.title }}</span>
+              <span class="tag">{{ item.tag }}</span>
+            </div>
             <div class="describe">{{ item.describe }}</div>
             <div class="tip">
               <span class="date">
@@ -20,7 +24,6 @@
                 <View style="width: 1em; height: 1em;vertical-align: -2px;" />
                 {{ item.count }}
               </span>
-              <span class="tag">{{ item.tag }}</span>
             </div>
           </div>
         </el-col>
@@ -95,6 +98,15 @@ const router = useRouter()
     padding: 10px;
     cursor: pointer;
 
+    .tag {
+      border: 1px solid #528fae;
+      color: #528fae;
+      padding: 3px;
+      border-radius: 4px;
+      font-size: 12px;
+      float: right;
+    }
+
     .b_img {
       display: flex;
       flex-direction: column;
@@ -127,27 +139,14 @@ const router = useRouter()
 
       .tip {
         height: 20px;
-        font-size: 15px;
+        font-size: 13px;
         color: #666;
         line-height: 20px;
         vertical-align: middle;
         margin-top: 40px;
 
         .date {
-          margin-right: 20px;
-        }
-
-        .view {
-          margin-left: 2px;
-        }
-
-        .tag {
-          border: 1px solid #528fae;
-          color: #528fae;
-          padding: 3px;
-          border-radius: 4px;
-          font-size: 12px;
-          margin-left: 40px;
+          margin-right: 15px;
         }
       }
     }
