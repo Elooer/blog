@@ -39,3 +39,17 @@ interface PageInfo {
   current: number
   total: number
 }
+
+type RecordListItem = {
+  _id: string
+  title: string
+  date: string
+}
+
+interface RecordItf {
+  list: {
+    _id: string
+    list: Array<RecordListItem>
+  }[]
+  tag: Array<string>
+}

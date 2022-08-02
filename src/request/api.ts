@@ -15,3 +15,6 @@ export const getArticleById = (data: { _id: string }): PromiseRef<ArticleItf> =>
 
 export const getPageInfo = (data: { page: number }): PromiseRef<PageInfo> =>
   axios.post('/article/getPageInfo', data)
+
+export const getRecord = (): PromiseRef<RecordItf> =>
+  axios.get('/article/getRecord')
