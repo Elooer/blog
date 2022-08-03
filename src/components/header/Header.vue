@@ -9,7 +9,13 @@
       <el-menu-item class="pc" index="/record"><i class="iconfont">&#xe7dc;</i>归档</el-menu-item>
       <el-menu-item class="pc" index="/message"><i class="iconfont">&#xe7e4;</i>留言</el-menu-item>
       <el-menu-item class="pc" index="/about"><i class="iconfont">&#xe7dd;</i>关于</el-menu-item>
-      <el-menu-item class="pc" index="/login">登录</el-menu-item>
+      <el-menu-item class="pc" index="/login" v-if="!isLogin">
+        <span>登录</span>
+      </el-menu-item>
+      <div class="avatar pc" v-else>
+        <img src="../../assets/avatar.png" alt="">
+        <div class="logout" @click="logout">退出登录</div>
+      </div>
       <Operation @click="drawer = true" class="pe" style="width: 2em; height: 2em;vertical-align: -2px;color: #fff" />
       <el-drawer v-model="drawer" direction="ttb" :show-close="false" :with-header="false">
         <div class="tab">
@@ -32,7 +38,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive, ref, toRefs, onMounted } from 'vue'
+import { reactive, ref, toRefs, onMounted, onBeforeMount, watch } from 'vue'
 import { Operation } from '@element-plus/icons-vue'
 
 const props = defineProps({
@@ -45,6 +51,16 @@ const props = defineProps({
 const state = reactive({
   bgc: 'rgba(0,0,0,0)',
   isActive: false,
+})
+
+let isLogin = ref(false)
+onBeforeMount(() => {
+  let token = localStorage.getItem('blog_token')
+  if (token) {
+    isLogin.value = true
+  } else {
+    isLogin.value = false
+  }
 })
 
 
@@ -68,6 +84,11 @@ onMounted(() => {
     bgc.value = 'rgba(0,0,0,0.3)'
   }
 })
+
+const logout = () => {
+  localStorage.removeItem('blog_token')
+  isLogin.value = false
+}
 
 let { bgc, isActive } = toRefs(state)
 let { flag } = props
@@ -129,6 +150,38 @@ let { flag } = props
 
   .pc {
     display: block;
+  }
+}
+
+.avatar {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 12px;
+  margin-top: 14px;
+  cursor: pointer;
+
+  &:hover .logout {
+    display: block;
+  }
+
+  img {
+    width: 90%;
+    height: 90%;
+  }
+
+  .logout {
+    position: absolute;
+    top: 30px;
+    left: -16px;
+    display: none;
+    height: 25px;
+    width: 65px;
+    font-size: 12px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    line-height: 25px;
+    text-align: center;
   }
 }
 </style>

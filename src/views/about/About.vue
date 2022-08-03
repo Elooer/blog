@@ -33,6 +33,7 @@ import Header from '../../components/header/Header.vue'
 
   .content {
     font-size: 15px;
+    margin: 0 40px;
     margin-top: 15px;
     text-align: left;
     color: #666;
