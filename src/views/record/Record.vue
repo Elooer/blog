@@ -5,7 +5,10 @@
     <div class="title">归档</div>
     <div class="tags_title">标签</div>
     <div class="tags">
-      <span class="tags_item" v-for="item in tag">{{ item }}</span>
+      <span class="tags_item" v-for="item in tag">
+        <CollectionTag style="width: 1em; height: 1em;vertical-align: -2px;color: skyblue;" />
+        {{ item._id + ' ' + item.count }}
+      </span>
     </div>
     <div class="record" v-for="item in list">
       <div class="year">{{ item._id }}</div>
@@ -17,11 +20,14 @@
       </el-timeline>
     </div>
   </div>
+  <Footer />
 </template>
 <script lang="ts" setup>
 import { reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { getRecord } from '../../request/api'
+import { CollectionTag } from '@element-plus/icons-vue'
+import Footer from '../../components/footer/Footer.vue'
 
 const state = reactive<RecordItf>({
   list: [{
@@ -43,7 +49,7 @@ getRecord().then(res => {
     list.value.forEach(item => {
       item.list = item.list.reverse()
     })
-    tag.value = res.data?.tag as string[]
+    tag.value = res.data?.tag as []
   }
 })
 
@@ -85,11 +91,12 @@ const toArticle = (id: string) => {
     text-align: left;
 
     .tags_item {
-      padding: 5px;
-      background-color: #3f8ccf;
-      color: #eee;
+      padding: 6px;
+      background-color: #0e8fda;
+      color: #fff;
       margin: 10px;
-      font-size: 15px;
+      font-size: 13px;
+      border-radius: 15px;
     }
   }
 

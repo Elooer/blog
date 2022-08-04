@@ -21,12 +21,14 @@
       </div>
     </div>
   </div>
+  <Footer />
 </template>
 <script lang="ts" setup>
 import { reactive, ref, toRefs, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getArticleById } from '../../request/api'
 import Header from '../../components/header/Header.vue'
+import Footer from '../../components/footer/Footer.vue'
 import useTimeFormat from '../../hooks/useTimeFormat'
 import { Calendar, View } from '@element-plus/icons-vue'
 import { marked } from 'marked'

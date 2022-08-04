@@ -51,5 +51,8 @@ interface RecordItf {
     _id: string
     list: Array<RecordListItem>
   }[]
-  tag: Array<string>
+  tag: {
+    _id: string
+    count: number
+  }[]
 }

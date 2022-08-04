@@ -6,10 +6,12 @@
     <img style="width: 80%;margin-top: 15px;" src="../../assets/me.webp" alt="">
     <div class="content">一名在读大学生，热爱编程。目前还在不断学习中，对于新知识和新技术有着强烈的求知欲。平时也爱逛逛论坛博客，此站用于记录个人学习过程中的心得和感悟。</div>
   </div>
+  <Footer />
 </template>
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import Header from '../../components/header/Header.vue'
+import Footer from '../../components/footer/Footer.vue'
 
 </script>
 <style lang="less" scoped>

@@ -8,12 +8,12 @@
       <span class="name">Elooer</span>
       <div class="overview">
         <div class="o_left">
-          <span class="o_data" style="color:#3b82f6;">15</span>
+          <span class="o_data" style="color:#3b82f6;">{{ total }}</span>
           <span>博客</span>
         </div>
         <div class="o_right">
-          <span class="o_data" style="color:#fd4c74;">324</span>
-          <span>访客数</span>
+          <span class="o_data" style="color:#fd4c74;">{{ tagNum }}</span>
+          <span>标签</span>
         </div>
       </div>
       <div class="contact">
@@ -26,8 +26,6 @@
         <el-tooltip class="box-item" effect="dark" content="1921517233" placement="bottom">
           <i class="iconfont" style="color:#23abf2;">&#xe6b4;</i>
         </el-tooltip>
-
-
       </div>
       <!-- <div>As I could</div>
       <div>Write the most elegant code</div> -->
@@ -36,6 +34,22 @@
 </template>
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
+import { getPageInfo, getRecord } from '../../../request/api'
+
+const total = ref(0)
+const tagNum = ref(0)
+
+getPageInfo({ page: 1 }).then(res => {
+  if (res.status === 200) {
+    total.value = res.data?.total as number
+  }
+})
+
+getRecord().then(res => {
+  if (res.status === 200) {
+    tagNum.value = res.data?.tag.length as number
+  }
+})
 
 </script>
 <style lang="less" scoped>

@@ -12,6 +12,7 @@
         <pCard class="animate__animated animate__fadeInRight" />
       </el-col>
     </el-row>
+    <Footer />
   </div>
 </template>
 <script lang="ts" setup>
@@ -20,6 +21,7 @@ import { reactive, ref, toRefs, onMounted } from 'vue'
 import Header from '../../components/header/Header.vue'
 import pCard from './components/PersonCard.vue'
 import ArticleList from './components/ArticleList.vue'
+import Footer from '../../components/footer/Footer.vue'
 
 const state = reactive({
   typewriter: '',
