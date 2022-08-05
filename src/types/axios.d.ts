@@ -56,3 +56,11 @@ interface RecordItf {
     count: number
   }[]
 }
+
+interface CommentsRes {
+  _id: string
+  pubTime: string
+  username: string
+  avatar: string
+  comments: string
+}

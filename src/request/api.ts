@@ -18,3 +18,11 @@ export const getPageInfo = (data: { page: number }): PromiseRef<PageInfo> =>
 
 export const getRecord = (): PromiseRef<RecordItf> =>
   axios.get('/article/getRecord')
+
+export const addComment = (data: {
+  userinfo: string | null
+  comments: string
+}): PromiseRef => axios.post('/message/addComment', data)
+
+export const getCommentList = (): PromiseRef<CommentsRes[]> =>
+  axios.get('/message/getCommentList')
