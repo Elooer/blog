@@ -3,16 +3,12 @@
   <div class="banner animate__animated animate__fadeInDown"></div>
   <div class="message_container animate__animated animate__fadeInUp">
     <div class="title">留言板</div>
-    <div ref="newBox">
-      <div ref="child"></div>
-    </div>
-    <div ref="resPanel">
-      <el-input ref="input" v-model="textarea" :rows="2" type="textarea" placeholder="说点什么吧" />
+    <div v-if="isComment">
+      <el-input v-model="textarea" :rows="2" type="textarea" placeholder="说点什么吧" />
       <el-button type="primary" @click="commitComment">提交</el-button>
-      <el-button v-if="where" type="danger" @click="cancel">取消</el-button>
     </div>
-    <div class="comment_head">{{ commentList.length }}条评论</div>
-    <div class="comment_box" v-for="item in commentList">
+    <div class="comment_head">{{ total }}条评论</div>
+    <div class="comment_box" v-for="(item, index) in commentList">
       <div class="comment_item">
         <div class="avatar">
           <img :src="item.avatar" alt="">
@@ -23,8 +19,23 @@
           <div class="content">{{ item.comments }}</div>
         </div>
       </div>
-      <div class="response" @click="response">回复</div>
+      <div class="response_item" v-for="item1 in item.response">
+        <div class="avatar">
+          <img :src="item1.avatar" alt="">
+        </div>
+        <div class="userinfo">
+          <div class="username">{{ item1.username }}</div>
+          <div class="date">{{ useTimeFormat(item1.pubTime) }}</div>
+          <div class="content">{{ item1.comments }}</div>
+        </div>
+      </div>
+      <div @click="cancel(index)" v-if="where[index]" class="cancel">取消回复</div>
+      <div class="response" @click="response(index)">
+        <span>回复</span>
+        <component v-if="where[index]" :is="Comment" :id="item._id"></component>
+      </div>
     </div>
+    <el-button style="width: 20%" type="primary" @click="getCommentAll(true)">加载更多...</el-button>
   </div>
   <Footer />
 </template>
@@ -33,34 +44,38 @@ import { ref, reactive, toRefs, getCurrentInstance } from 'vue'
 import { getCommentList, addComment } from '../../request/api'
 import useTimeFormat from '../../hooks/useTimeFormat'
 import Footer from '../../components/footer/Footer.vue'
-const state = reactive<{ textarea: string; commentList: CommentsRes[]; where: boolean }>({
+import Comment from './components/Comment.vue'
+
+const state = reactive<{ textarea: string; commentList: CommentsRes[]; where: boolean[]; count: number; total: number }>({
   textarea: '',
   commentList: [],
-  where: false
+  where: [],
+  count: 1,
+  total: 0
 })
 
-const newBox = ref()
-const child = ref()
-const resPanel = ref()
-const input = ref()
+const { textarea, commentList, where, count, total } = toRefs(state)
+
+const isComment = ref(true)
 
 // 回复
-const response = (e: Event) => {
-  let target = e.currentTarget as HTMLElement
-  target.appendChild(resPanel.value)
-  input.value.focus()
-  where.value = true
+const response = (index: number) => {
+  where.value = []
+  where.value[index] = true
+  isComment.value = false
 }
 
-const cancel = () => {
-  where.value = false
-  newBox.value.appendChild(resPanel.value)
+const cancel = (index: number) => {
+  where.value[index] = false
+  isComment.value = true
 }
 
-const getCommentAll = () => {
-  getCommentList().then(res => {
+const getCommentAll = (more?: boolean) => {
+  if (more) count.value++
+  getCommentList({ count: count.value }).then(res => {
     if (res.status === 200) {
-      commentList.value = res.data as CommentsRes[]
+      commentList.value = res.data?.list as CommentsRes[]
+      total.value = res.data?.total as number
     }
   })
 }
@@ -85,8 +100,6 @@ const commitComment = () => {
     }
   })
 }
-
-const { textarea, commentList, where } = toRefs(state)
 const ctx = getCurrentInstance()
 </script>
 <style lang="less" scoped>
@@ -112,7 +125,7 @@ const ctx = getCurrentInstance()
 
   .cancel {
     font-size: 13px;
-    color: #4b89d1;
+    color: #e64520;
     cursor: pointer;
     text-align: right;
   }
@@ -133,7 +146,7 @@ const ctx = getCurrentInstance()
 
   .comment_box {
     margin-bottom: 30px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #eee;
 
     .comment_item {
       display: flex;
@@ -154,6 +167,45 @@ const ctx = getCurrentInstance()
 
         .username {
           font-size: 15px;
+          font-weight: 600;
+        }
+
+        .date {
+          font-size: 12px;
+          color: #ccc;
+        }
+
+        .content {
+          margin-top: 5px;
+          font-size: 14px;
+        }
+      }
+    }
+
+    .response_item {
+      display: flex;
+      margin-top: 20px;
+      width: 90%;
+      margin-left: 10%;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+
+      .avatar {
+        width: 8%;
+        margin-right: 3%;
+
+        img {
+          width: 100%;
+          border-radius: 50%;
+        }
+      }
+
+      .userinfo {
+        flex: 1;
+        text-align: left;
+
+        .username {
+          font-size: 14px;
           font-weight: 600;
         }
 

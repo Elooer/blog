@@ -63,4 +63,17 @@ interface CommentsRes {
   username: string
   avatar: string
   comments: string
+  response: {
+    _id: string
+    pubTime: string
+    username: string
+    avatar: string
+    comments: string
+  }[]
+}
+
+interface MessageParams {
+  id: string
+  userinfo: string | null
+  comments: string
 }

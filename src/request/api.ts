@@ -24,5 +24,10 @@ export const addComment = (data: {
   comments: string
 }): PromiseRef => axios.post('/message/addComment', data)
 
-export const getCommentList = (): PromiseRef<CommentsRes[]> =>
-  axios.get('/message/getCommentList')
+export const getCommentList = (data: {
+  count: number
+}): PromiseRef<{ total: number; list: CommentsRes[] }> =>
+  axios.post('/message/getCommentList', data)
+
+export const addResponse = (data: MessageParams): PromiseRef =>
+  axios.post('/message/addResponse', data)
