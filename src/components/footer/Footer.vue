@@ -1,5 +1,5 @@
 <template>
-  <div class="footer_container">
+  <div class="footer_container animate__animated animate__fadeInUp">
 
   </div>
 </template>

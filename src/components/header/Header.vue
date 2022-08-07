@@ -31,7 +31,8 @@
           <router-link to="/about" style="text-decoration: none;color: #fff;">关于</router-link>
         </div>
         <div class="tab">
-          <router-link to="/login" style="text-decoration: none;color: #fff;">登录</router-link>
+          <router-link to="/login" style="text-decoration: none;color: #fff;" v-if="!isLogin">登录</router-link>
+          <div style="text-decoration: none;color: #fff;" @click="logout" v-else>退出登录</div>
         </div>
       </el-drawer>
     </el-menu>

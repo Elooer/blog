@@ -32,7 +32,7 @@
       <div @click="cancel(index)" v-if="where[index]" class="cancel">取消回复</div>
       <div class="response" @click="response(index)">
         <span>回复</span>
-        <component v-if="where[index]" :is="Comment" :id="item._id"></component>
+        <component v-if="where[index]" :is="Comment" :id="item._id" @refresh="refresh($event, index)"></component>
       </div>
     </div>
     <el-button style="width: 20%" type="primary" @click="getCommentAll(true)">加载更多...</el-button>
@@ -51,7 +51,7 @@ const state = reactive<{ textarea: string; commentList: CommentsRes[]; where: bo
   commentList: [],
   where: [],
   count: 1,
-  total: 0
+  total: 0,
 })
 
 const { textarea, commentList, where, count, total } = toRefs(state)
@@ -65,11 +65,13 @@ const response = (index: number) => {
   isComment.value = false
 }
 
+// 取消回复
 const cancel = (index: number) => {
   where.value[index] = false
   isComment.value = true
 }
 
+// 获取所以评论
 const getCommentAll = (more?: boolean) => {
   if (more) count.value++
   getCommentList({ count: count.value }).then(res => {
@@ -99,6 +101,11 @@ const commitComment = () => {
       getCommentAll()
     }
   })
+}
+
+const refresh = (e: null, index: number) => {
+  cancel(index)
+  getCommentAll()
 }
 const ctx = getCurrentInstance()
 </script>

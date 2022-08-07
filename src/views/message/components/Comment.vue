@@ -5,13 +5,15 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive, ref, getCurrentInstance } from 'vue'
+import { ref, getCurrentInstance } from 'vue'
 import { addResponse } from '../../../request/api'
 
 const textarea = ref('')
 const props = defineProps({
   id: String
 })
+
+const emits = defineEmits(['refresh'])
 
 const response = () => {
   let userinfo: string | null = null
@@ -27,7 +29,9 @@ const response = () => {
     comments: textarea.value
   }).then(res => {
     if (res.status === 200) {
-      console.log(res)
+      ctx?.appContext.config.globalProperties.$message.success(res.message)
+      textarea.value = ''
+      emits('refresh')
     }
   })
 }
