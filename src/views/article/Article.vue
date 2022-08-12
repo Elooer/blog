@@ -64,8 +64,8 @@ const state = reactive<{ id: string; article: ArticleItf }>({
     state: true
   }
 })
-
-let content = marked('### 安装git\n```\nyum install git -y\n```\n### 安装node\n![这是图片](https://markdown.com.cn/assets/img/philly-magic-garden.9c0b4415.jpg "Magic Gardens")\n#### 下载nvm\n使用Git将NVM的源码克隆到本地的~/.nvm目录下，并检查最新版本。\n```\ngit clone git://github.com/cnpm/nvm.git ~/.nvm && cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`\n```\n#### 配置nvm环境变量\n依次运行以下命令，配置NVM的环境变量\n```\necho \". ~/.nvm/nvm.sh\" >> /etc/profile\nsource /etc/profile\n```\n#### 安装node\n通过nvm 安装管理node\n```\nnvm install 12\n```\n### 安装nginx\n#### yum安装\n```\nyum -y install nginx\n```\n#### 查看版本\n```\nnginx -v\n```\n返回结果如下所示，表示Nginx安装成功。\n```\nnginx version: nginx/1.20.1\n```\n### 安装mongodb\n#### 创建repo\n```\nvi /etc/yum.repos.d/mongodb-org-4.4.repo\n```\n#### 写入repo\n```\n[mongodb-org-4.4]\nname=MongoDB 4.4 Repository\nbaseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/$basearch/\ngpgcheck=0\nenabled=1\n```\n#### yum安装\n```\nyum -y install mongodb-org\n```\n#### 设置启动\n```\nsystemctl enable mongod\nsystemctl start mongod\n```\n#### 修改配置文件\n查看mongo安装位置 whereis mongod\n显示内容如下：\n```javascript\nmongod: /usr/bin/mongod /etc/mongod.conf /usr/share/man/man1/mongod.1.gz\n```\n启动命令：/usr/bin/mongod\n查看修改配置文件 ： vim /etc/mongod.conf\n\n#### 设置远程访问\n把Mongodb的端口号：27017加入到安全组。（机器内部访问不需要）\n\n### 安装redis\n```\nyum -y install redis\n```\n#### 启动服务\n```\nservice redis start\nservice redis stop\n```\n#### 配置文件\n```\nvi /etc/redis.conf\n```\n#### 设置密码\n找到redis.conf 文件，打开密码设置\n```javascript\n# requirepass foobared\nrequirepass 123   指定密码123\n```\n#### 远程访问\n允许远程访问redis，除需要开放服务器端口号6379，还需将配置文件中的bind 127.0.0.1注释掉\n\n')
+let { id, article } = toRefs(state)
+let content = marked(article.value.content)
 
 let router = useRouter()
 onMounted(() => {
@@ -77,7 +77,6 @@ onMounted(() => {
   })
 })
 
-let { id, article } = toRefs(state)
 </script>
 <style lang="less" scoped>
 .article_container {

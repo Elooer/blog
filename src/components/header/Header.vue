@@ -39,7 +39,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive, ref, toRefs, onMounted, onBeforeMount, watch } from 'vue'
+import { reactive, ref, toRefs, onMounted, onBeforeMount } from 'vue'
 import { Operation } from '@element-plus/icons-vue'
 
 const props = defineProps({

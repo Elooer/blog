@@ -71,7 +71,7 @@ const cancel = (index: number) => {
   isComment.value = true
 }
 
-// 获取所以评论
+// 获取所有评论
 const getCommentAll = (more?: boolean) => {
   if (more) count.value++
   getCommentList({ count: count.value }).then(res => {
