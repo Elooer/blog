@@ -38,19 +38,13 @@ import '../../assets/css/markedown.less'
 
 marked.setOptions({
   renderer: new marked.Renderer(),
-  highlight(code: string) {
-    return hljs.highlightAuto(code).value
-  },
-  pedantic: false,
-  gfm: true,
-  tables: true,
-  breaks: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  xhtml: false
+  gfm: true,	// 启动类似于Github样式的Markdown语法
+  pedantic: false, // 只解析符合Markdwon定义的，不修正Markdown的错误
+  sanitize: false, // 原始输出，忽略HTML标签（关闭后，可直接渲染HTML标签）
+  // 高亮的语法规范
+  highlight: (code: any, lang: any) => hljs.highlight(code, { language: lang }).value,
 })
-const state = reactive<{ id: string; article: ArticleItf }>({
+const state = reactive<{ id: string; article: ArticleItf; content: string }>({
   id: '',
   article: {
     _id: '',
@@ -62,19 +56,18 @@ const state = reactive<{ id: string; article: ArticleItf }>({
     count: 0,
     img: '',
     state: true
-  }
+  },
+  content: ''
 })
-let { id, article } = toRefs(state)
-let content = marked(article.value.content)
+let { id, article, content } = toRefs(state)
 
 let router = useRouter()
-onMounted(() => {
-  id.value = router.currentRoute.value.params.id as string
-  getArticleById({ _id: id.value }).then(res => {
-    if (res.status === 200) {
-      article.value = res.data as ArticleItf
-    }
-  })
+id.value = router.currentRoute.value.params.id as string
+getArticleById({ _id: id.value }).then(res => {
+  if (res.status === 200) {
+    article.value = res.data as ArticleItf
+    content.value = marked(article.value.content)
+  }
 })
 
 </script>
