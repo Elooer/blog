@@ -5,10 +5,18 @@
     <div class="title">归档</div>
     <div class="tags_title">标签</div>
     <div class="tags">
-      <span class="tags_item" v-for="item in tag">
+      <span class="tags_item" v-for="item in tag" @click="findTagArticle(item._id)">
         <CollectionTag style="width: 1em; height: 1em;vertical-align: -2px;color: skyblue;" />
         {{ item._id + ' ' + item.count }}
       </span>
+    </div>
+    <div class="record">
+      <el-timeline>
+        <el-timeline-item v-for="(activity, index) in tagArticles" :key="index" color="#007acc">
+          <span class="article_title" @click="toArticle(activity._id)">{{ activity.title }}</span>
+          <span class="date">{{ useTimeFormat(activity.pubTime) }}</span>
+        </el-timeline-item>
+      </el-timeline>
     </div>
     <div class="record" v-for="item in list">
       <div class="year">{{ item._id }}</div>
@@ -23,11 +31,12 @@
   <Footer />
 </template>
 <script lang="ts" setup>
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { getRecord } from '../../request/api'
+import { getRecord, getArticleByTag } from '../../request/api'
 import { CollectionTag } from '@element-plus/icons-vue'
 import Footer from '../../components/footer/Footer.vue'
+import useTimeFormat from '../../hooks/useTimeFormat'
 
 const state = reactive<RecordItf>({
   list: [{
@@ -38,8 +47,10 @@ const state = reactive<RecordItf>({
       date: ''
     }]
   }],
-  tag: []
+  tag: [],
 })
+
+let tagArticles = ref<ArticleListRes>([])
 
 const { list, tag } = toRefs(state)
 
@@ -57,6 +68,14 @@ const router = useRouter()
 
 const toArticle = (id: string) => {
   router.push(`/article/${id}`)
+}
+
+const findTagArticle = (tag: string) => {
+  getArticleByTag({ tag }).then(res => {
+    if (res.status === 200) {
+      tagArticles.value = res.data as ArticleListRes
+    }
+  })
 }
 
 </script>
@@ -89,6 +108,7 @@ const toArticle = (id: string) => {
 
   .tags {
     text-align: left;
+    margin-bottom: 20px;
 
     .tags_item {
       padding: 6px;
@@ -97,6 +117,7 @@ const toArticle = (id: string) => {
       margin: 10px;
       font-size: 13px;
       border-radius: 15px;
+      cursor: pointer;
     }
   }
 

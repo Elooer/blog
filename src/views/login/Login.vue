@@ -99,6 +99,8 @@ const login = () => {
         setTimeout(() => {
           router.push('/home')
         }, 1000)
+      } else {
+        ctx?.appContext.config.globalProperties.$message.error(res.message)
       }
     })
   })
@@ -116,6 +118,8 @@ const register = () => {
       if (res.status === 200) {
         ctx?.appContext.config.globalProperties.$message.success(res.message)
         registerFormRef.value?.resetFields()
+      } else {
+        ctx?.appContext.config.globalProperties.$message.error(res.message)
       }
     })
   })
