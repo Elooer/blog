@@ -100,7 +100,7 @@ const login = () => {
           router.push('/home')
         }, 1000)
       } else {
-        ctx?.appContext.config.globalProperties.$message.error(res.message)
+        ctx?.appContext.config.globalProperties.$message.error('登录失败！')
       }
     })
   })
@@ -119,7 +119,7 @@ const register = () => {
         ctx?.appContext.config.globalProperties.$message.success(res.message)
         registerFormRef.value?.resetFields()
       } else {
-        ctx?.appContext.config.globalProperties.$message.error(res.message)
+        ctx?.appContext.config.globalProperties.$message.error('注册失败，请稍后再试！')
       }
     })
   })
