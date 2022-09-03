@@ -86,7 +86,7 @@ const findTagArticle = (tag: string) => {
 }
 
 .record_container {
-  width: 50%;
+  width: 60%;
   margin: auto;
   background-color: #fff;
   margin-top: 20px;

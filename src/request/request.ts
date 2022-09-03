@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:3006',
-  timeout: 15000,
+  baseURL: 'http://elooerblog.top:5000',
+  timeout: 5000,
 })
 
 // 请求拦截器

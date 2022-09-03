@@ -116,7 +116,7 @@ const ctx = getCurrentInstance()
 }
 
 .message_container {
-  width: 50%;
+  width: 60%;
   margin: auto;
   background-color: #fff;
   margin-top: 20px;

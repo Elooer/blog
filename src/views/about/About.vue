@@ -21,7 +21,7 @@ import Footer from '../../components/footer/Footer.vue'
 }
 
 .about {
-  width: 50%;
+  width: 60%;
   background-color: #fff;
   margin: auto;
   margin-top: 20px;

@@ -6,10 +6,10 @@
     </div>
     <el-row>
       <el-col :xs="{ span: 24, offset: 0 }" :sm="{ span: 15, offset: 1 }" :md="{ span: 13, offset: 2 }">
-        <ArticleList class="animate__animated animate__fadeInLeft" />
+        <ArticleList class="animate__animated animate__flipInX" />
       </el-col>
       <el-col :xs="{ span: 22, offset: 1 }" :sm="{ span: 7, offset: 0 }" :md="{ span: 6, offset: 1 }">
-        <pCard class="animate__animated animate__fadeInRight" />
+        <pCard class="animate__animated animate__bounceIn" />
       </el-col>
     </el-row>
     <Footer />

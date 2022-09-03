@@ -2,8 +2,7 @@
   <div class="card_container">
     <div class="card hover_class">
       <div class="avatar">
-        <img src="https://avatars.githubusercontent.com/u/75289160?s=400&u=603c03e10ae12bb1d4660e33784aeaef62ef2281&v=4"
-          alt="">
+        <img src="https://cdn.elooerblog.top/img/OIP-C.jfif" alt="">
       </div>
       <span class="name">Elooer</span>
       <div class="overview">
