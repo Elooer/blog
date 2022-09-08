@@ -17,7 +17,7 @@ import Footer from '../../components/footer/Footer.vue'
 <style lang="less" scoped>
 .banner {
   height: 60vh;
-  background: url("../../assets/about_bg.png") no-repeat center center;
+  background: url("https://cdn.elooerblog.top/img/about_bg.png") no-repeat center center;
 }
 
 .about {

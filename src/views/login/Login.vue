@@ -136,7 +136,7 @@ const registerFormRef = ref<FormInstance>()
 <style lang="less" scoped>
 .login_bg {
   height: 100vh;
-  background: url("../../assets/login_bg.png") no-repeat center center;
+  background: url("https://cdn.elooerblog.top/img/login_bg.png") no-repeat center center;
   // background-size: contain;
 }
 

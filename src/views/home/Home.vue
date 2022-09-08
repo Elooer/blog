@@ -57,7 +57,7 @@ let { typewriter, str, timer } = toRefs(state)
   .banner {
     position: relative;
     height: 60vh;
-    background: url("../../assets/home_banner.png") no-repeat center center;
+    background: url("https://cdn.elooerblog.top/img/home_banner.png") no-repeat center center;
 
     .str {
       position: absolute;

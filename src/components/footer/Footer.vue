@@ -1,7 +1,7 @@
 <template>
   <div class="footer_container">
     <div class="record">
-      <router-link to="https://beian.miit.gov.cn" style="color:#bcbbbb">赣ICP备2022007846号</router-link>
+      <a href="https://beian.miit.gov.cn" style="color:#bcbbbb">赣ICP备2022007846号</a>
     </div>
     <div class="copyright">Copyright © 2022 Elooer</div>
   </div>

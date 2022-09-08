@@ -112,7 +112,7 @@ const ctx = getCurrentInstance()
 <style lang="less" scoped>
 .banner {
   height: 60vh;
-  background: url("../../assets/message_bg.png") no-repeat center center;
+  background: url("https://cdn.elooerblog.top/img/message_bg.png") no-repeat center center;
 }
 
 .message_container {

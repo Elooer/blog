@@ -82,7 +82,7 @@ const findTagArticle = (tag: string) => {
 <style lang="less" scoped>
 .banner {
   height: 60vh;
-  background: url("../../assets/record_bg.png") no-repeat center center;
+  background: url("https://cdn.elooerblog.top/img/record_bg.png") no-repeat center center;
 }
 
 .record_container {

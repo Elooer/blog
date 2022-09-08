@@ -75,7 +75,7 @@ getArticleById({ _id: id.value }).then(res => {
 .article_container {
   .banner {
     height: 60vh;
-    background: url("../../assets/article_bg.png") no-repeat center center;
+    background: url("https://cdn.elooerblog.top/img/article_bg.png") no-repeat center center;
   }
 
   .article_content {
