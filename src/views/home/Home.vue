@@ -13,7 +13,7 @@
       </el-col>
     </el-row>
     <Footer />
-  </div>
+</div>
 </template>
 <script lang="ts" setup>
 import { head } from 'lodash';

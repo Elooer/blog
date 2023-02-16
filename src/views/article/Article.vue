@@ -44,7 +44,21 @@ marked.setOptions({
   // 高亮的语法规范
   highlight: (code: any, lang: any) => hljs.highlight(code, { language: lang }).value,
 })
-const state = reactive<{ id: string; article: ArticleItf; content: string }>({})
+const state = reactive<{ id: string; article: ArticleItf; content: string }>({
+  id: '',
+  article: {
+    _id: '',
+    title: '',
+    describe: '',
+    content: '',
+    pubTime: '',
+    tag: '',
+    count: 0,
+    img: '',
+    state: true
+  },
+  content: ''
+})
 let { id, article, content } = toRefs(state)
 
 let router = useRouter()

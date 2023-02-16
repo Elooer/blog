@@ -57,7 +57,7 @@ const state = reactive<{ textarea: string; commentList: CommentsRes[]; where: bo
 const { textarea, commentList, where, count, total } = toRefs(state)
 
 const isComment = ref(true)
-const { proxy } = getCurrentInstance()
+const { proxy } = getCurrentInstance() as any
 
 // 回复
 const response = (index: number) => {

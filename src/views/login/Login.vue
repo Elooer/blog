@@ -46,9 +46,9 @@ import { FormInstance, FormRules } from 'element-plus'
 import { User, Lock } from '@element-plus/icons-vue'
 import { loginApi, registerApi } from '../../request/api'
 
-let { loginForm, registerForm, rules } = toRefs(state)
+
 let router = useRouter()
-const { proxy } = getCurrentInstance()
+const { proxy } = getCurrentInstance() as any
 const loginFormRef = ref<FormInstance>()
 const registerFormRef = ref<FormInstance>()
 
@@ -87,6 +87,8 @@ const state = reactive<{ loginForm: LoginFormItf, registerForm: RegisterFormItf,
     ],
   }
 })
+
+let { loginForm, registerForm, rules } = toRefs(state)
 
 // 登录
 const login = () => {
