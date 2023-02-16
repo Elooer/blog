@@ -37,7 +37,7 @@
     </div>
     <el-button style="width: 20%" type="primary" @click="getCommentAll(true)">加载更多...</el-button>
   </div>
-  <Footer />
+<Footer />
 </template>
 <script lang="ts" setup>
 import { ref, reactive, toRefs, getCurrentInstance } from 'vue'
@@ -57,6 +57,7 @@ const state = reactive<{ textarea: string; commentList: CommentsRes[]; where: bo
 const { textarea, commentList, where, count, total } = toRefs(state)
 
 const isComment = ref(true)
+const { proxy } = getCurrentInstance()
 
 // 回复
 const response = (index: number) => {
@@ -89,7 +90,7 @@ const commitComment = () => {
     userinfo = localStorage.getItem('blog_token')
   }
   if (textarea.value.trim() === '') {
-    ctx?.appContext.config.globalProperties.$message.error('请输入内容！')
+    proxy.$message.error('请输入内容！')
   }
   addComment({
     userinfo,
@@ -97,7 +98,7 @@ const commitComment = () => {
   }).then(res => {
     if (res.status === 200) {
       textarea.value = ''
-      ctx?.appContext.config.globalProperties.$message.success(res.message)
+      proxy.$message.success(res.message)
       getCommentAll()
     }
   })
@@ -107,7 +108,7 @@ const refresh = (e: null, index: number) => {
   cancel(index)
   getCommentAll()
 }
-const ctx = getCurrentInstance()
+
 </script>
 <style lang="less" scoped>
 .banner {

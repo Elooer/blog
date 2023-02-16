@@ -37,7 +37,7 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-  </div>
+</div>
 </template>
 <script lang="ts" setup>
 import { reactive, ref, toRefs, getCurrentInstance } from 'vue'
@@ -45,6 +45,12 @@ import { useRouter } from 'vue-router'
 import { FormInstance, FormRules } from 'element-plus'
 import { User, Lock } from '@element-plus/icons-vue'
 import { loginApi, registerApi } from '../../request/api'
+
+let { loginForm, registerForm, rules } = toRefs(state)
+let router = useRouter()
+const { proxy } = getCurrentInstance()
+const loginFormRef = ref<FormInstance>()
+const registerFormRef = ref<FormInstance>()
 
 const validatePass2 = (rule: any, value: string, callback: Function) => {
   if (value === '') {
@@ -94,13 +100,13 @@ const login = () => {
       if (res.status === 200) {
         let token = res.data?.token
         localStorage.setItem('blog_token', token || '')
-        ctx?.appContext.config.globalProperties.$message.success(res.message)
+        proxy.$message.success(res.message)
 
         setTimeout(() => {
           router.push('/home')
         }, 1000)
       } else {
-        ctx?.appContext.config.globalProperties.$message.error(res.message)
+        proxy.$message.error(res.message)
       }
     })
   })
@@ -116,21 +122,14 @@ const register = () => {
       rePassword: registerForm.value.rePassword
     }).then(res => {
       if (res.status === 200) {
-        ctx?.appContext.config.globalProperties.$message.success(res.message)
+        proxy.$message.success(res.message)
         registerFormRef.value?.resetFields()
       } else {
-        ctx?.appContext.config.globalProperties.$message.error(res.message)
+        proxy.$message.error(res.message)
       }
     })
   })
 }
-
-
-let { loginForm, registerForm, rules } = toRefs(state)
-let router = useRouter()
-const ctx = getCurrentInstance()
-const loginFormRef = ref<FormInstance>()
-const registerFormRef = ref<FormInstance>()
 
 </script>
 <style lang="less" scoped>
